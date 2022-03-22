@@ -117,7 +117,7 @@ public class Event {
         } else {
             formattedPhoneNumber = "000-000-0000";
         }
-        System.out.println("Strange Code lives here " + formattedPhoneNumber);
+
         return formattedPhoneNumber;
     }
 
@@ -143,6 +143,7 @@ public class Event {
     }
 
 }
+
 
 =================================EventDemo.java====================================
 
@@ -180,14 +181,14 @@ public class EventDemo {
                 int eveType = Integer.parseInt(myObj.nextLine());
                 eventTypeLists.add(eveType);
 
-                // System.out.println("Enter phone number: ");
-                // String phoneNum = myObj.nextLine();
+                System.out.println("Enter phone number: ");
+                String phoneNum = myObj.nextLine();
 
                 event[a] = new Event();
                 event[a].setGuests(num);
                 event[a].setEventType(eveType);
-                // event[a].getPhoneNumber(phoneNum);
-                // event[a].displayDetails(num, eveNum);
+                event[a].getPhoneNumber(phoneNum);
+                event[a].displayDetails(num, eveNum);
 
             }
 
