@@ -1,0 +1,411 @@
+========================Event===================
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+import java.util.ArrayList;
+
+public class Event {
+
+    public int pricePerGuests;
+
+    // Two fields that holds the high and low price per guest
+
+    public final static int lowPricePerGuest = 32;
+    public final static int highPricePerGuest = 35;
+
+    // Public final static fields
+    public final static int CUT_OFF_VALUE = 50;
+
+    // three private fields
+    protected String eventNumber;
+    protected int numberOfGuests;
+    private int priceTotal = 0;
+
+    // Add a contact phone number field
+    public static String phoneNumber = "";
+    public static String phoneNumberFinal = "";
+    public static String formattedPhoneNumber = "";
+
+    public static int length;
+
+    // CH8 integer field that holds an event type
+    int eventType;
+    String typeOutput;
+
+    // CH8 Final String array that holds names of the types of events
+    public final String[] typesOfEvents = { "wedding", "baptism", "birthday", "corporate", "other" };
+
+    // three public get methods
+    public String getEventNumber() {
+        return this.eventNumber;
+    }
+
+    public int getNumberOfGuest() {
+        return this.numberOfGuests;
+
+    }
+
+    public String setEventNumber(String x) {
+        if (x.length() != 4) {
+            eventNumber = "A000";
+        } else if (x.length() == 4) {
+            if (!Character.isAlphabetic(x.charAt(0)) || !Character.isDigit(x.charAt(1))
+                    || !Character.isDigit(x.charAt(2)) || !Character.isDigit(x.charAt(3))) {
+            }
+            eventNumber = x;
+        }
+
+        return eventNumber = x;
+    }
+
+    // *CH8 get and set methods for the int event type*
+    public int getEventType() {
+        return this.eventType;
+    }
+
+    public void setEventType(int a) {
+        int size = typesOfEvents.length;
+        for (int x = 0; x < size; x++) {
+            if (a > 5) {
+                eventType = a;
+                typeOutput = typesOfEvents[4];
+            } else {
+                eventType = a;
+                typeOutput = typesOfEvents[a - 1];
+            }
+        }
+    }
+
+    // CH3**************************
+    public void setGuests(int x) {
+        if (x < 50) {
+            pricePerGuests = lowPricePerGuest;
+            numberOfGuests = x;
+        } else {
+            pricePerGuests = highPricePerGuest;
+            numberOfGuests = x;
+        }
+
+    }
+
+    public int priceTotal() {
+        priceTotal = pricePerGuests * numberOfGuests;
+        return priceTotal;
+    }
+
+    // Add a set method for the contact phone number field
+    public String getPhoneNumber(String x) {
+        phoneNumber = x;
+        setPhoneNumber(phoneNumber);
+        return phoneNumber;
+    }
+
+    public static String setPhoneNumber(String x) {
+        if (x.length() >= 10) {
+            phoneNumberFinal = x.replaceAll("[^a-zA-Z ]", "");
+        } else {
+            phoneNumberFinal = "000000000";
+        }
+        getPhone(phoneNumberFinal);
+
+        return phoneNumberFinal;
+    }
+
+    // Format Phone number
+    public static String getPhone(String x) {
+
+        if (x.length() == 10) {
+            formattedPhoneNumber = x.replaceAll("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+
+        } else {
+            formattedPhoneNumber = "000-000-0000";
+        }
+
+        return formattedPhoneNumber;
+    }
+
+    // Add a new method named isLargeEvent()
+    public boolean isLargeEvent() {
+        if (numberOfGuests >= CUT_OFF_VALUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void displayDetails() {
+        System.out.println("\n");
+        System.out.println("Event number: " + eventNumber);
+        System.out.println("Number of guests: " + numberOfGuests);
+        System.out.println("The price per guests: " + pricePerGuests);
+        System.out.println("Final price: $" + priceTotal());
+        System.out.println("Is large event: " + isLargeEvent());
+        System.out.println("Phone Number: " + formattedPhoneNumber);
+        System.out.println("Event Type: " + typeOutput);
+        System.out.println("\n");
+    }
+
+}
+
+===========================DinnerEvent==========================
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class DinnerEvent extends Event {
+
+    // CH10 four new integer fields that represent numeric choices
+    // for an entrée, two side dishes, and a dessert for each DinnerEvent object
+
+    private int entree;
+    private int sideDish1;
+    private int sideDish2;
+    private int dessert;
+    public String entreeSelect;
+    public String sideDish1Select;
+    public String sideDish2Select;
+    public String dessertSelect;
+
+    // CH10 three final arrays that contain String menu options for entrées, side
+    // dishes, and desserts, and store at least three choices in each array.
+    final String[] entreeOption = { "Steak", "Chicken", "Fish", "none" };
+    final String[] sideOption1 = { "Mac & Cheese", "Veggies", "Mash Potatoes", "none" };
+    final String[] sideOption2 = { "Fries", "Salad", "Fruit", "none" };
+    final String[] dessertOption = { "Pie", "Cake", "Ice Cream", "none" };
+
+    // CH10 DinnerEvent constructor that requires arguments for an event number and
+    // number of guests, and integer
+    // menu choices for one entrée, two side dishes, and one dessert.
+    public DinnerEvent() {
+
+    }
+
+    public String getEntree() {
+        return entreeOption[entree - 1];
+    }
+
+    public String getSide1() {
+        return sideOption1[sideDish1 - 1];
+    }
+
+    public String getSide2() {
+        return sideOption2[sideDish2 - 1];
+    }
+
+    public String getDessert() {
+        return dessertOption[dessert - 1];
+    }
+
+    public void setEntree(int x) {
+        this.entree = x;
+    }
+
+    public void setSide1(int x) {
+        this.sideDish1 = x;
+    }
+
+    public void setSide2(int x) {
+        this.sideDish2 = x;
+    }
+
+    public void setDessert(int x) {
+        this.dessert = x;
+    }
+
+    public DinnerEvent(int c, int d, int e, int f) {
+        super.eventNumber = getEventNumber();
+        super.numberOfGuests = getNumberOfGuest();
+
+        entree = c;
+        sideDish1 = d;
+        sideDish2 = e;
+        dessert = f;
+    }
+
+    public String getMenu() {
+
+        String menu = "<!--- Entrees ---!>\n";
+        for (int i = 0; i < entreeOption.length; i++) {
+            menu += ((i + 1) + ") " + entreeOption[i] + "\n");
+        }
+        menu += "\n<!--- Side Dish 1 ---!>\n";
+        for (int i = 0; i < sideOption1.length; i++) {
+            menu += ((i + 1) + ") " + sideOption1[i] + "\n");
+        }
+        menu += "\n<!--- Side Dish 2 ---!>\n";
+        for (int i = 0; i < sideOption2.length; i++) {
+            menu += ((i + 1) + ") " + sideOption2[i] + "\n");
+        }
+
+        menu += "\n<!--- Desserts ---!>\n";
+        for (int i = 0; i < dessertOption.length; i++) {
+            menu += ((i + 1) + ") " + dessertOption[i] + "\n");
+        }
+
+        // return menu
+        return menu;
+    }
+
+}
+
+==============================EventDemo=======================
+
+import java.util.Scanner;
+import java.util.*;
+import java.util.Collections;
+
+public class EventDemo {
+
+    public static void main(String[] args) {
+
+        final int SIZE = 2;
+        Event[] event = new Event[SIZE];
+        Scanner myObj = new Scanner(System.in);
+        Event events = new Event();
+        int num;
+
+        // CH9
+        List<Integer> guestAmountLists = new ArrayList<>();
+        List<Integer> eventTypeLists = new ArrayList<>();
+        List<String> eventNumbLists = new ArrayList<>();
+
+        // CH10
+        List<Integer> entreeLists = new ArrayList<>();
+        List<Integer> side1Lists = new ArrayList<>();
+        List<Integer> side2Lists = new ArrayList<>();
+        List<Integer> dessertLists = new ArrayList<>();
+        DinnerEvent[] dinnerEvent = new DinnerEvent[SIZE];
+
+        for (int a = 0; a < 2; a++) {
+
+            System.out.println("\n" + "Enter number of guests ");
+            num = Integer.parseInt(myObj.nextLine());
+            guestAmountLists.add(num);
+
+            System.out.println("Enter event number: ");
+            String eveNum = myObj.nextLine();
+            eventNumbLists.add(eveNum);
+
+            System.out.println("Enter event type: ");
+            int eveType = Integer.parseInt(myObj.nextLine());
+            eventTypeLists.add(eveType);
+
+            System.out.println("Enter phone number: ");
+            String phoneNum = myObj.nextLine();
+
+            // Food Choices
+
+            System.out.println(new DinnerEvent().getMenu());
+            System.out.println("\n" + "Choose an entree 1-3: ");
+            int entreeChoice = Integer.parseInt(myObj.nextLine());
+            entreeLists.add(entreeChoice);
+
+            System.out.println("\n" + "Choose a side 1-3: ");
+            int sideChoice1 = Integer.parseInt(myObj.nextLine());
+            side1Lists.add(sideChoice1);
+
+            System.out.println("\n" + "Choose a side second side 1-3: ");
+            int sideChoice2 = Integer.parseInt(myObj.nextLine());
+            side2Lists.add(sideChoice2);
+
+            System.out.println("\n" + "Choose a dessert 1-3: ");
+            int dessert = Integer.parseInt(myObj.nextLine());
+            dessertLists.add(dessert);
+            dinnerEvent[a] = new DinnerEvent(entreeChoice, sideChoice1, sideChoice2, dessert);
+            event[a] = new Event();
+            event[a].setGuests(num);
+            event[a].setEventNumber(eveNum);
+            event[a].setEventType(eveType);
+            event[a].getPhoneNumber(phoneNum);
+            event[a].displayDetails();
+
+        }
+        printEvents(event, dinnerEvent);
+        int userInput;
+        while (true) {
+            menu();
+            userInput = myObj.nextInt();
+            if (userInput == 100)
+                break;
+            else if (userInput == 1) {
+                sortEventByEventNumber(event, eventNumbLists);
+                System.out.println("\nAfter sorting Event List Based on Event Number");
+            } else if (userInput == 2) {
+                sortEventByNumberOfGuest(event, eventNumbLists);
+                System.out.println("\nAfter sorting Event List Based on Guest Number");
+                // printEvents(dinnerEvent);
+            } else if (userInput == 3) {
+                sortEventByTypeNumber(event, eventNumbLists);
+                System.out.println("\nAfter sorting Event List Based on Type");
+                // printEvents(dinnerEvent);
+            }
+        }
+
+    }
+
+    public static void printEvents(Event[] event, DinnerEvent[] dinnerEvent) {
+
+        for (int i = 0; i < event.length; i++) {
+
+            System.out.println("\nInformation for Event number #" + (i + 1));
+
+            System.out.println("The Event Number is: " + event[i].getEventNumber());
+
+            System.out.println("The Event Type is : " + event[i].getEventType());
+
+            System.out.println("Number of guests is : " + event[i].getNumberOfGuest());
+
+            System.out.println("Selected Entree : " + dinnerEvent[i].getEntree());
+
+            System.out.println("Selected side dishes : " + dinnerEvent[i].getSide1());
+
+            System.out.println("Selected side dishes : " + dinnerEvent[i].getSide2());
+
+            System.out.println("Selected Dessert : " + dinnerEvent[i].getDessert());
+
+        }
+    }
+
+    private static void menu() {
+
+        System.out.println("\n1) To Sort List based on Event Number.");
+
+        System.out.println("2) To Sort List based on Number Of Guest.");
+
+        System.out.println("3) To Sort List based on Event Type.");
+
+        System.out.println("100) To Exit.");
+
+        System.out.print("Enter Your choice: ");
+
+    }
+
+    private static void sortEventByEventNumber(Event[] event, List<String> eventNumbLists) {
+        for (int i = 0; i < event.length; i++) {
+            Collections.sort(eventNumbLists);
+
+        }
+        System.out.print(eventNumbLists);
+    }
+
+    private static void sortEventByNumberOfGuest(Event[] event, List<String> guestAmountLists) {
+        for (int i = 0; i < event.length; i++) {
+            Collections.sort(guestAmountLists);
+
+        }
+        System.out.print(guestAmountLists);
+    }
+
+    private static void sortEventByTypeNumber(Event[] event, List<String> eventTypeLists) {
+        for (int i = 0; i < event.length; i++) {
+            Collections.sort(eventTypeLists);
+
+        }
+        System.out.print(eventTypeLists);
+    }
+}
